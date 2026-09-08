@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      tickets: {
+        Row: {
+          admin_note: string | null
+          card_code: string
+          card_currency: string
+          card_type: string
+          card_value: number
+          created_at: string
+          id: string
+          payout_address: string
+          payout_coin: string
+          status: Database["public"]["Enums"]["ticket_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_note?: string | null
+          card_code: string
+          card_currency?: string
+          card_type: string
+          card_value: number
+          created_at?: string
+          id?: string
+          payout_address: string
+          payout_coin: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_note?: string | null
+          card_code?: string
+          card_currency?: string
+          card_type?: string
+          card_value?: number
+          created_at?: string
+          id?: string
+          payout_address?: string
+          payout_coin?: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +85,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ticket_status: "open" | "processing" | "paid" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +212,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ticket_status: ["open", "processing", "paid", "rejected"],
+    },
   },
 } as const
