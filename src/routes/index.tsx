@@ -14,6 +14,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  ShieldCheck,
+  Lock,
+  Eye,
+  BadgeCheck,
+  Clock,
+  Star,
+  TicketCheck,
+  Send,
+  Coins,
+} from "lucide-react";
 import heroImage from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
