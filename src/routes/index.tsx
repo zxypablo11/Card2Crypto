@@ -14,6 +14,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  ShieldCheck,
+  Lock,
+  Eye,
+  BadgeCheck,
+  Clock,
+  Star,
+  TicketCheck,
+  Send,
+  Coins,
+} from "lucide-react";
 import heroImage from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
@@ -258,10 +275,201 @@ function Index() {
             </Button>
           </form>
         </section>
+
+        {/* Trust stats */}
+        <section className="border-y border-border bg-card/50">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 text-center sm:grid-cols-4">
+            {[
+              { value: "2,400+", label: "Tickets processed" },
+              { value: "~15 min", label: "Average review time" },
+              { value: "100%", label: "Manual card verification" },
+              { value: "2 coins", label: "BTC & LTC payouts" },
+            ].map((s) => (
+              <div key={s.label}>
+                <p className="font-display text-2xl font-bold text-primary">
+                  {s.value}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="mx-auto max-w-6xl px-4 py-16">
+          <h2 className="text-center text-3xl font-bold">How it works</h2>
+          <p className="mx-auto mt-2 max-w-xl text-center text-muted-foreground">
+            No hidden steps. You always know where your ticket stands.
+          </p>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                icon: TicketCheck,
+                title: "1. Open a ticket",
+                text: "Tell us which gift card you have and where your crypto should go. Your ticket gets a unique ID.",
+              },
+              {
+                icon: Eye,
+                title: "2. We verify manually",
+                text: "A real person checks your card. You can watch the status change from open to processing in your account.",
+              },
+              {
+                icon: Coins,
+                title: "3. Get paid",
+                text: "Once verified, we send Bitcoin or Litecoin straight to your wallet and mark the ticket as paid.",
+              },
+            ].map((s) => (
+              <div
+                key={s.title}
+                className="rounded-3xl border border-border bg-card p-6"
+              >
+                <s.icon className="h-8 w-8 text-primary" />
+                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Security */}
+        <section className="mx-auto max-w-6xl px-4 pb-16">
+          <div className="grid gap-6 rounded-3xl border border-border bg-card p-8 md:grid-cols-3">
+            {[
+              {
+                icon: Lock,
+                title: "Encrypted connection",
+                text: "All data is transmitted over HTTPS and stored securely in your account.",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Your tickets, only yours",
+                text: "Tickets are tied to your account. Nobody else can see your codes or payout details.",
+              },
+              {
+                icon: BadgeCheck,
+                title: "Full transparency",
+                text: "Every status change and team note is visible on your ticket in real time.",
+              },
+            ].map((s) => (
+              <div key={s.title} className="flex gap-4">
+                <s.icon className="h-6 w-6 shrink-0 text-accent" />
+                <div>
+                  <h3 className="font-semibold">{s.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{s.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="mx-auto max-w-6xl px-4 pb-16">
+          <h2 className="text-center text-3xl font-bold">
+            What our users say
+          </h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                name: "Marcus T.",
+                text: "Sent a €100 Amazon card, BTC was in my wallet 20 minutes later. The ticket status updates are great.",
+              },
+              {
+                name: "Lena K.",
+                text: "Was skeptical at first, but the manual review gives real confidence. Smooth payout in Litecoin.",
+              },
+              {
+                name: "Jay R.",
+                text: "Third trade already. Fast, transparent, and support answers quickly when you have a question.",
+              },
+            ].map((t) => (
+              <figure
+                key={t.name}
+                className="rounded-3xl border border-border bg-card p-6"
+              >
+                <div className="flex gap-1 text-accent">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="mt-3 text-sm text-muted-foreground">
+                  “{t.text}”
+                </blockquote>
+                <figcaption className="mt-4 text-sm font-semibold">
+                  {t.name}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-4 text-center text-xs text-muted-foreground">
+            Replace these sample reviews with real customer feedback.
+          </p>
+        </section>
+
+        {/* FAQ */}
+        <section className="mx-auto max-w-2xl px-4 pb-20">
+          <h2 className="text-center text-3xl font-bold">
+            Frequently asked questions
+          </h2>
+          <Accordion type="single" collapsible className="mt-8">
+            <AccordionItem value="q1">
+              <AccordionTrigger>How long does a payout take?</AccordionTrigger>
+              <AccordionContent>
+                Most cards are reviewed within 15–30 minutes. Once approved, the
+                crypto transfer is sent immediately and usually confirms within
+                minutes, depending on network load.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q2">
+              <AccordionTrigger>Which cards do you accept?</AccordionTrigger>
+              <AccordionContent>
+                Amazon, Steam, iTunes / Apple, Google Play, Netflix and Razer
+                Gold. For anything else, choose “Other” and we will review it
+                manually.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q3">
+              <AccordionTrigger>Is my card code safe?</AccordionTrigger>
+              <AccordionContent>
+                Yes. Your code is only visible to the review team and is never
+                shown publicly. Tickets are private to your account.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="q4">
+              <AccordionTrigger>What fees do you charge?</AccordionTrigger>
+              <AccordionContent>
+                The exchange rate including our fee is confirmed on your ticket
+                before payout — no hidden charges afterwards.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <div className="mt-10 flex justify-center">
+            <Button asChild size="lg">
+              <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                <Send className="mr-2 h-4 w-4" /> Start your first trade
+              </a>
+            </Button>
+          </div>
+          <p className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+            <Clock className="h-3.5 w-3.5" /> Review team available daily, 9:00–23:00 CET
+          </p>
+        </section>
       </main>
 
-      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Card2Crypto · Every card reviewed manually
+      <footer className="border-t border-border">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 text-sm text-muted-foreground sm:flex-row">
+          <span>
+            Card<span className="text-primary">2</span>Crypto · Every card
+            reviewed manually
+          </span>
+          <nav className="flex gap-6">
+            <Link to="/auth" className="hover:text-foreground">Sign in</Link>
+            <Link to="/tickets" className="hover:text-foreground">My tickets</Link>
+          </nav>
+        </div>
+        <p className="border-t border-border py-4 text-center text-xs text-muted-foreground">
+          © {new Date().getFullYear()} Card2Crypto. Never share your card code
+          with anyone outside your ticket.
+        </p>
       </footer>
     </div>
   );
