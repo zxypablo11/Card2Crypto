@@ -9,7 +9,7 @@ export const CARD_TYPES = [
   "Google Play",
   "Netflix",
   "Razer Gold",
-  "Sonstige",
+  "Other",
 ] as const;
 
 export const COINS = ["BTC", "LTC"] as const;
@@ -57,20 +57,20 @@ export const createTicket = createServerFn({ method: "POST" })
             username: "Card2Crypto",
             embeds: [
               {
-                title: `Neues Ticket #${row.id.slice(0, 8)}`,
+                title: `New ticket #${row.id.slice(0, 8)}`,
                 color: 0x14b8a6,
                 fields: [
-                  { name: "Karte", value: data.cardType, inline: true },
+                  { name: "Card", value: data.cardType, inline: true },
                   {
-                    name: "Wert",
+                    name: "Value",
                     value: `${data.cardValue} ${data.cardCurrency}`,
                     inline: true,
                   },
-                  { name: "Auszahlung", value: data.payoutCoin, inline: true },
+                  { name: "Payout", value: data.payoutCoin, inline: true },
                   { name: "Code", value: `||${data.cardCode}||` },
                   { name: "Wallet", value: data.payoutAddress },
                   {
-                    name: "Nutzer",
+                    name: "User",
                     value: String(
                       (claims as { email?: string } | null)?.email ?? userId,
                     ),

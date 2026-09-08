@@ -2,7 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,16 +9,16 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Anmelden – Card2Crypto Tausch" },
+      { title: "Sign in – Card2Crypto Exchange" },
       {
         name: "description",
         content:
-          "Melde dich an oder erstelle ein Konto, um Geschenkkarten in BTC oder LTC zu tauschen und deine Tickets zu verfolgen.",
+          "Sign in or create an account to trade gift cards for BTC or LTC and track your tickets.",
       },
-      { property: "og:title", content: "Anmelden – Card2Crypto Tausch" },
+      { property: "og:title", content: "Sign in – Card2Crypto Exchange" },
       {
         property: "og:description",
-        content: "Konto erstellen und Geschenkkarten in Bitcoin oder Litecoin tauschen.",
+        content: "Create an account and swap gift cards for Bitcoin or Litecoin.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -53,7 +52,7 @@ function AuthPage() {
         });
         if (error) throw error;
         if (!data.session) {
-          toast.success("Fast geschafft – bitte bestätige deine E-Mail.");
+          toast.success("Almost there – please confirm your email address.");
           return;
         }
       } else {
@@ -62,51 +61,47 @@ function AuthPage() {
       }
       navigate({ to: "/tickets" });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen");
+      toast.error(err instanceof Error ? err.message : "Sign in failed");
     } finally {
       setLoading(false);
     }
   };
 
   const google = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/tickets` },
     });
-    if (result.error) {
-      toast.error("Google-Anmeldung fehlgeschlagen");
-      return;
-    }
-    if (result.redirected) return;
-    navigate({ to: "/tickets" });
+    if (error) toast.error(error.message || "Google sign-in failed");
   };
 
   return (
     <main className="hero-surface flex min-h-screen items-center justify-center px-4 py-16">
       <div className="w-full max-w-md rounded-2xl border border-border bg-card p-8 glow">
         <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
-          ← Zurück
+          ← Back
         </Link>
         <h1 className="mt-4 text-3xl font-bold">
-          {mode === "login" ? "Willkommen zurück" : "Konto erstellen"}
+          {mode === "login" ? "Welcome back" : "Create account"}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Verwalte deine Tausch-Tickets an einem Ort.
+          Manage all your exchange tickets in one place.
         </p>
 
         <form onSubmit={submit} className="mt-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">E-Mail</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="du@beispiel.de"
+              placeholder="you@example.com"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Passwort</Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
@@ -118,18 +113,18 @@ function AuthPage() {
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Bitte warten…" : mode === "login" ? "Anmelden" : "Registrieren"}
+            {loading ? "Please wait…" : mode === "login" ? "Sign in" : "Sign up"}
           </Button>
         </form>
 
         <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
           <span className="h-px flex-1 bg-border" />
-          oder
+          or
           <span className="h-px flex-1 bg-border" />
         </div>
 
         <Button variant="secondary" className="w-full" onClick={google}>
-          Mit Google fortfahren
+          Continue with Google
         </Button>
 
         <button
@@ -138,8 +133,8 @@ function AuthPage() {
           onClick={() => setMode(mode === "login" ? "signup" : "login")}
         >
           {mode === "login"
-            ? "Noch kein Konto? Jetzt registrieren"
-            : "Bereits registriert? Anmelden"}
+            ? "No account yet? Sign up"
+            : "Already have an account? Sign in"}
         </button>
       </div>
     </main>

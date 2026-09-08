@@ -79,16 +79,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Card2Crypto – Geschenkkarten in Krypto tauschen" },
+      { title: "Card2Crypto – Trade Gift Cards for Crypto" },
       {
         name: "description",
         content:
-          "Geschenkkarten sicher in Bitcoin oder Litecoin tauschen und den Ticket-Status verfolgen.",
+          "Trade gift cards safely for Bitcoin or Litecoin and track your ticket status.",
       },
       { property: "og:title", content: "Card2Crypto" },
       {
         property: "og:description",
-        content: "Geschenkkarten in Bitcoin oder Litecoin tauschen.",
+        content: "Trade gift cards for Bitcoin or Litecoin.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

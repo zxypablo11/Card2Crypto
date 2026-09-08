@@ -8,16 +8,16 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/_authenticated/tickets")({
   head: () => ({
     meta: [
-      { title: "Meine Tickets – Card2Crypto" },
+      { title: "My tickets – Card2Crypto" },
       {
         name: "description",
         content:
-          "Verfolge den Status deiner Geschenkkarten-Tausch-Tickets: offen, in Bearbeitung oder ausgezahlt.",
+          "Track the status of your gift card exchange tickets: open, processing or paid.",
       },
-      { property: "og:title", content: "Meine Tickets – Card2Crypto" },
+      { property: "og:title", content: "My tickets – Card2Crypto" },
       {
         property: "og:description",
-        content: "Status deiner Tausch-Anfragen in Echtzeit verfolgen.",
+        content: "Follow the status of your exchange requests in real time.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -27,10 +27,10 @@ export const Route = createFileRoute("/_authenticated/tickets")({
 });
 
 const STATUS_LABEL: Record<string, string> = {
-  open: "Offen",
-  processing: "In Bearbeitung",
-  paid: "Ausgezahlt",
-  rejected: "Abgelehnt",
+  open: "Open",
+  processing: "Processing",
+  paid: "Paid",
+  rejected: "Rejected",
 };
 
 const STATUS_STYLE: Record<string, string> = {
@@ -58,27 +58,25 @@ function TicketsPage() {
     <main className="min-h-screen px-4 py-12">
       <div className="mx-auto max-w-3xl">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="text-3xl font-bold">Meine Tickets</h1>
+          <h1 className="text-3xl font-bold">My tickets</h1>
           <div className="flex gap-2">
             <Button asChild variant="secondary">
-              <Link to="/">Neuer Tausch</Link>
+              <Link to="/">New exchange</Link>
             </Button>
             <Button variant="ghost" onClick={signOut}>
-              Abmelden
+              Sign out
             </Button>
           </div>
         </div>
 
-        {isLoading && <p className="mt-8 text-muted-foreground">Wird geladen…</p>}
-        {error && (
-          <p className="mt-8 text-destructive">Tickets konnten nicht geladen werden.</p>
-        )}
+        {isLoading && <p className="mt-8 text-muted-foreground">Loading…</p>}
+        {error && <p className="mt-8 text-destructive">Could not load your tickets.</p>}
 
         {data && data.length === 0 && (
           <div className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center">
-            <p className="text-muted-foreground">Noch keine Tickets vorhanden.</p>
+            <p className="text-muted-foreground">No tickets yet.</p>
             <Button asChild className="mt-4">
-              <Link to="/">Karte eintauschen</Link>
+              <Link to="/">Exchange a card</Link>
             </Button>
           </div>
         )}
@@ -93,7 +91,7 @@ function TicketsPage() {
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Ticket #{t.id.slice(0, 8)} ·{" "}
-                    {new Date(t.created_at).toLocaleString("de-DE")}
+                    {new Date(t.created_at).toLocaleString("en-GB")}
                   </p>
                 </div>
                 <span
@@ -105,7 +103,7 @@ function TicketsPage() {
                 </span>
               </div>
               <p className="mt-3 break-all text-sm text-muted-foreground">
-                Auszahlung: {t.payout_coin} → {t.payout_address}
+                Payout: {t.payout_coin} → {t.payout_address}
               </p>
               {t.admin_note && (
                 <p className="mt-2 rounded-lg bg-muted p-3 text-sm">{t.admin_note}</p>
