@@ -19,20 +19,20 @@ import heroImage from "@/assets/hero.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Card2Crypto – Geschenkkarten in BTC & LTC tauschen" },
+      { title: "Card2Crypto – Trade Gift Cards for BTC & LTC" },
       {
         name: "description",
         content:
-          "Tausche Amazon-, Steam- oder iTunes-Guthabenkarten sicher in Bitcoin oder Litecoin. Ticket erstellen und Status jederzeit verfolgen.",
+          "Trade Amazon, Steam or iTunes gift cards safely for Bitcoin or Litecoin. Open a ticket and track its status any time.",
       },
       {
         property: "og:title",
-        content: "Card2Crypto – Geschenkkarten in BTC & LTC tauschen",
+        content: "Card2Crypto – Trade Gift Cards for BTC & LTC",
       },
       {
         property: "og:description",
         content:
-          "Guthabenkarte eingeben, Ticket erhalten, Auszahlung in Bitcoin oder Litecoin verfolgen.",
+          "Submit your gift card, get a ticket, and track your Bitcoin or Litecoin payout.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -81,12 +81,10 @@ function Index() {
           payoutAddress: form.payoutAddress.trim(),
         },
       });
-      toast.success(`Ticket #${res.id.slice(0, 8)} erstellt`);
+      toast.success(`Ticket #${res.id.slice(0, 8)} created`);
       navigate({ to: "/tickets" });
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Ticket konnte nicht erstellt werden",
-      );
+      toast.error(err instanceof Error ? err.message : "Could not create ticket");
     } finally {
       setLoading(false);
     }
@@ -101,11 +99,11 @@ function Index() {
         <nav className="flex gap-2">
           {signedIn ? (
             <Button asChild variant="secondary">
-              <Link to="/tickets">Meine Tickets</Link>
+              <Link to="/tickets">My tickets</Link>
             </Button>
           ) : (
             <Button asChild variant="secondary">
-              <Link to="/auth">Anmelden</Link>
+              <Link to="/auth">Sign in</Link>
             </Button>
           )}
         </nav>
@@ -115,27 +113,27 @@ function Index() {
         <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-10 pt-8 lg:grid-cols-2">
           <div>
             <p className="inline-flex rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-              Auszahlung in BTC & LTC
+              Payouts in BTC & LTC
             </p>
             <h1 className="mt-5 text-4xl font-bold leading-tight sm:text-5xl">
-              Guthabenkarte rein,
+              Gift card in,
               <br />
-              <span className="text-primary">Krypto raus.</span>
+              <span className="text-primary">crypto out.</span>
             </h1>
             <p className="mt-5 max-w-md text-muted-foreground">
-              Gib deine Geschenkkarte an, wir prüfen sie manuell und zahlen in Bitcoin
-              oder Litecoin aus. Jede Anfrage wird zu einem Ticket, dessen Status du
-              jederzeit siehst.
+              Submit your gift card, we verify it manually and pay you out in Bitcoin or
+              Litecoin. Every request becomes a ticket whose status you can follow at any
+              time.
             </p>
             <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-              <li>• Amazon, Steam, iTunes, Google Play und mehr</li>
-              <li>• Prüfung meist innerhalb weniger Minuten</li>
-              <li>• Ticket-Status: offen → in Bearbeitung → ausgezahlt</li>
+              <li>• Amazon, Steam, iTunes, Google Play and more</li>
+              <li>• Usually reviewed within minutes</li>
+              <li>• Ticket status: open → processing → paid</li>
             </ul>
           </div>
           <img
             src={heroImage}
-            alt="Geschenkkarten verwandeln sich in Bitcoin- und Litecoin-Münzen"
+            alt="Gift cards turning into Bitcoin and Litecoin coins"
             width={1600}
             height={1000}
             className="rounded-3xl border border-border glow"
@@ -147,14 +145,14 @@ function Index() {
             onSubmit={onSubmit}
             className="rounded-3xl border border-border bg-card p-6 sm:p-8"
           >
-            <h2 className="text-2xl font-bold">Karte eintauschen</h2>
+            <h2 className="text-2xl font-bold">Exchange a card</h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Deine Angaben gehen direkt an unser Prüf-Team.
+              Your details go straight to our review team.
             </p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label>Kartentyp</Label>
+                <Label>Card type</Label>
                 <Select
                   value={form.cardType}
                   onValueChange={(v) =>
@@ -175,7 +173,7 @@ function Index() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="value">Kartenwert</Label>
+                <Label htmlFor="value">Card value</Label>
                 <div className="flex gap-2">
                   <Input
                     id="value"
@@ -206,7 +204,7 @@ function Index() {
               </div>
 
               <div className="space-y-2 sm:col-span-2">
-                <Label htmlFor="code">Kartencode</Label>
+                <Label htmlFor="code">Card code</Label>
                 <Input
                   id="code"
                   required
@@ -218,7 +216,7 @@ function Index() {
               </div>
 
               <div className="space-y-2">
-                <Label>Auszahlung in</Label>
+                <Label>Pay out in</Label>
                 <Select
                   value={form.payoutCoin}
                   onValueChange={(v) =>
@@ -239,7 +237,7 @@ function Index() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="wallet">Wallet-Adresse</Label>
+                <Label htmlFor="wallet">Wallet address</Label>
                 <Input
                   id="wallet"
                   required
@@ -253,17 +251,17 @@ function Index() {
 
             <Button type="submit" className="mt-6 w-full" disabled={loading}>
               {loading
-                ? "Ticket wird erstellt…"
+                ? "Creating ticket…"
                 : signedIn
-                  ? "Ticket erstellen"
-                  : "Anmelden & Ticket erstellen"}
+                  ? "Create ticket"
+                  : "Sign in & create ticket"}
             </Button>
           </form>
         </section>
       </main>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Card2Crypto · Manuelle Prüfung jeder Karte
+        Card2Crypto · Every card reviewed manually
       </footer>
     </div>
   );
